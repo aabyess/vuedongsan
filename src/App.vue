@@ -1,45 +1,42 @@
 <template>
 
-  <div class="black-bg" v-if="모달창열렸니 == true">
-    <div class="white-bg">
-      <h4>상세페이지임</h4>
-      <p>상세페이지 내용임</p>
-      <button @click="모달창열렸니 = false">닫기</button>
-    </div>
-  </div>
+<!-- CTRL +/ 주석처리 -->
+
+
+  <Modal :원룸들="원룸들" :누른거="누른거" :모달창열렸니="모달창열렸니"/>
 
 
   <div class="menu">
     <a v-for="a in 메뉴들" :key="a">{{ a }}</a>
   </div>
 
+  <Card :원룸="원룸들[i]" v-for="(작명,i) in 원룸들" :key="작명" />
+
+  <!-- <Card :원룸="원룸들[1]" />
+  <Card :원룸="원룸들[2]" />
+  <Card :원룸="원룸들[3]" />
+  <Card :원룸="원룸들[4]" />
+  <Card :원룸="원룸들[5]" /> -->
+  
+  <Discount/>
 
 
-  <div v-for="(a,i) in 원룸들" :key="i">
-    <img :src="a.image" class="room-img">
-    <h4 @click="모달창열렸니 =true">{{a.title}}</h4>
-    <p>{{a.price}}</p>
-  </div>
-  <div>
-    <img src="./assets/room1.jpg" class="room-img">
-    <h4>{{ products[1] }}</h4>
-    <p>가격은 아무거나</p>
-    <button @click="신고수[1]++">허위매물신고</button> <span>신고수 : {{신고수[1]}}</span>
-  </div>
-  <div>
-    <img src="./assets/room2.jpg" class="room-img">
-    <h4>{{ products[2] }}</h4>
-    <p>가격은 아무거나</p>
-    <button @click="신고수[2]++">허위매물신고</button> <span>신고수 : {{신고수[2]}}</span>
-  </div>
+
+
+ 
 </template>
 
 <script>
 import data from './assets/oneroom';
+import Card from './Card.vue';
+import Discount from './Discount.vue';
+import Modal from './Modal.vue';
+
 export default {
   name : 'App',
   data() {
     return{
+      누른거: 0,
       원룸들 : data,
       모달창열렸니 : false,
       신고수 : [0,0,0],
@@ -53,6 +50,9 @@ export default {
     }
   },
   components : {
+    Discount,
+    Modal,
+    Card,
   }
 }
 </script>
@@ -63,17 +63,6 @@ body{
 }
 div{
   box-sizing: border-box;
-}
-
-.black-bg{
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  position: fixed; padding: 20px;
-}
-.white-bg{
-  width: 100%; background: white;
-  border-radius: 8px;
-  padding:20px;
 }
 
 .menu{
