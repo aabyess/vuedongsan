@@ -21,6 +21,26 @@ export default {
 
       }
     },
+    watch:{
+      month(a){
+        // 사용자가 month에 입력한 데이터가 13보다 크면 경고문 띄우기기
+        if(a > 13 ){
+          alert('13이상 입력하지마셈');
+        }
+        else if(isNaN(a) == true){
+          alert('글자입력하지마셈');
+          this.month =1;
+        }
+
+      },
+    },
+
+    beforeUpdate() {
+      if(this.month ==2){
+        alert('2개월은 너무 적음... 안팝니다.')
+      }
+    },
+
     props:{
         원룸들: Array,
         누른거: Number,
